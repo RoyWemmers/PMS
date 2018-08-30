@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +13,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Auth check-- Makes sure user can't access app when not logged in
+if(!Auth::check()) {
+    Route::redirect('*', '/login', 301 );
+}
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+
