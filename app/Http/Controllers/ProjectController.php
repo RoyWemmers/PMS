@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Deadlines;
+use App\Deadline;
+use App\User;
 use App\Participant;
 use App\Project;
 use App\Category;
@@ -36,6 +37,7 @@ class ProjectController extends Controller
     public function create()
     {
         $data['customers'] = Customer::get();
+        $data['users'] = User::get();
 
         return view('project/create', $data);
     }
