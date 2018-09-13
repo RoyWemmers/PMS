@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\category;
+use App\participant;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ParticipantController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return false;
+        //
     }
 
     /**
@@ -41,10 +41,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\category  $category
+     * @param  \App\participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function show(category $category)
+    public function show(participant $participant)
     {
         //
     }
@@ -52,10 +52,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\category  $category
+     * @param  \App\participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function edit(category $category)
+    public function edit(participant $participant)
     {
         //
     }
@@ -64,10 +64,10 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\category  $category
+     * @param  \App\participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, category $category)
+    public function update(Request $request, participant $participant)
     {
         //
     }
@@ -75,10 +75,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\category  $category
+     * @param  \App\participant  $participant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(category $category)
+    public function destroy(participant $participant)
     {
         //
     }
