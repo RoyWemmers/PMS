@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Participant;
-use App\Project;
-use App\Category;
-use App\Customer;
 use App\Userroles;
 use Illuminate\Http\Request;
-use App\Deadline;
 
-class ProjectController extends Controller
+class UserrolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,13 +14,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $data = [];
-
-        $data['projects'] = Project::get();
-
-        $data['users'] = User::get();
-
-        return view('project/projects', $data);
+        //
     }
 
     /**
@@ -36,10 +24,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $data['customers'] = Customer::get();
-        $data['users'] = User::get();
-
-        return view('project/create', $data);
+        //
     }
 
     /**
@@ -56,28 +41,21 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Userroles  $userroles
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Userroles $userroles)
     {
-        $projectid = $project->id;
-
-        $data['project'] = Project::where('id', $projectid)->get();
-        $data['deadlines'] = Deadline::where('projectid', $projectid)->get();
-        $data['category'] = Category::where('projectid', $projectid)->get();
-        $data['participants'] = Project::with(['User', 'user.roles'])->get();
-
-        return view('project/project', $data);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Userroles  $userroles
      * @return \Illuminate\Http\Response
      */
-    public function edit(Project $project)
+    public function edit(Userroles $userroles)
     {
         //
     }
@@ -86,10 +64,10 @@ class ProjectController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Project  $project
+     * @param  \App\Userroles  $userroles
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Userroles $userroles)
     {
         //
     }
@@ -97,10 +75,10 @@ class ProjectController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Project  $project
+     * @param  \App\Userroles  $userroles
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy(Userroles $userroles)
     {
         //
     }
