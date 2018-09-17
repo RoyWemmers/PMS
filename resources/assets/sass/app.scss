@@ -68,3 +68,21 @@
     justify-content: flex-end;
   }
 }
+
+//-------------------------------------------------------
+//                    Single Project
+//-------------------------------------------------------
+#single-project {
+
+  .participants {
+
+    list-style: none;
+
+    .roles, .roles ul {
+      padding:  0 0 0 5px;
+      list-style: none;
+    }
+
+  }
+
+}

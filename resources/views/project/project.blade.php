@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div id="single-project" class="container-fluid">
         <div class="row">
             <div class="col-xl-6">
                 <div class="card">
@@ -10,9 +10,6 @@
                     </div>
                     <div class="card-body">
                         {{ $project }}
-                        {{ $participants }}
-                        {{ $deadlines }}
-                        {{ $category }}
                     </div>
                 </div>
             </div>
@@ -42,14 +39,23 @@
                 </div>
             </div>
             <div class="col-xl-3">
-                <div class="card">
+                <div class="participants card">
                     <div class="card-header">
                         Participants
                     </div>
                     <div class="card-body">
                         <ul>
-                            @foreach($participants as $participant)
-                            <li>{{ $participant }}</li>
+                            @foreach($participants[0]->user as $participant)
+                            <li>{{ $participant->name }}</li>
+                            @if(isset($participant->roles[0]))
+                            <li class="roles">
+                                <ul>
+                                    @foreach($participant->roles as $role)
+                                    <li>- {{ $role->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                            @endif
                             @endforeach
                         </ul>
 
