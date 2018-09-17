@@ -17,5 +17,4 @@ Auth::routes();
 
 Route::resource('projects', 'ProjectController');
 
-
-
+Route::get('/userroles/ajax', 'UserrolesController@ajaxGetUserroles');
