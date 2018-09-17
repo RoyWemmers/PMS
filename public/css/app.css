@@ -10535,3 +10535,13 @@ a.text-dark:focus {
           justify-content: flex-end;
 }
 
+#single-project .participants {
+  list-style: none;
+}
+
+#single-project .participants .roles,
+#single-project .participants .roles ul {
+  padding: 0 0 0 5px;
+  list-style: none;
+}
+

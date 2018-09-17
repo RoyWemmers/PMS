@@ -66,7 +66,7 @@ class ProjectController extends Controller
         $data['project'] = Project::where('id', $projectid)->get();
         $data['deadlines'] = Deadline::where('projectid', $projectid)->get();
         $data['category'] = Category::where('projectid', $projectid)->get();
-        $data['participants'] = Participant::join('users', 'participants.userid', '=', 'users.id')->join('roles', 'roles.id', '=', 'userroles.roleid')->where('projectid', $projectid)->get();
+        $data['participants'] = Project::with(['User', 'user.roles'])->get();
 
         return view('project/project', $data);
     }
