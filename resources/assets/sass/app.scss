@@ -13,6 +13,58 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-#footerbar-project-create {
-  justify-content: flex-end;
+.projects-overview {
+  a.card {
+    max-width: 200px;
+    padding: 30px 0;
+    text-align: center;
+    color: #000;
+  }
+  a:hover {
+     text-decoration: none;
+  }
+}
+
+
+//-------------------------------------------------------
+//                    Create Project
+//-------------------------------------------------------
+#create-project {
+
+  .participants-list {
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 1px #adadad;
+    min-height: 200px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+
+        p {
+          margin: 0;
+        }
+      }
+
+      ul {
+        margin: 5px 0;
+        padding: 0 0 0 20px;
+      }
+    }
+  }
+
+  .participant-button {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+  }
+
+  #footerbar-project-create {
+    justify-content: flex-end;
+  }
 }
