@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+    <div id="create-project" class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
@@ -50,8 +50,8 @@
                             <nav id="footerbar-project-create" class="navbar fixed-bottom navbar-dark bg-primary">
                                 <button class="btn btn-success">Create</button>
                             </nav>
-                            <div class="hidden-form-input">
-                                <input type="hidden" value="">
+                            <div id="hidden-inputs" class="hidden-form-input">
+
                             </div>
                         </form>
                     </div>
@@ -63,28 +63,16 @@
                         Participants:
                     </div>
                     <div class="card-body">
-                        <div class="form-group row">
-                            <label class="col-lg-3" for="">Participant</label>
-                            <select name="" class="col-lg-9 form-control" id="">
-                                @if(isset($users[0]))
-                                    @foreach($users as $user)
-                                        <option class="project-participant" value="{{ $user->id }}" data-id="{{ $user->id }}" data-name="{{ $user->name }}">{{ $user->name }}</option>
-                                    @endforeach
-                                @else
-                                    <option disabled value="">No Customers Available</option>
-                                @endif
-                            </select>
-                        </div>
-                        <div>
-                            <button id="add-participant" class="btn btn-success">Add Participant</button>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <ul>
-                                    <li data-status="nousers">No Participants Added yet!</li>
-                                </ul>
-                            </div>
-                        </div>
+                       <div class="participants-list">
+                            <ul>
+                                @foreach($users as $user)
+                                <li class="userrole-ajax" data-id="{{ $user->id }}">
+                                    <p>- {{ $user->name }}</p>
+                                    <i class="fas fa-caret-down"></i>
+                                </li>
+                                @endforeach
+                            </ul>
+                       </div>
                     </div>
                 </div>
             </div>
@@ -109,4 +97,31 @@
         </div>
     </div>
 
+@endsection
+
+@section('footer')
+    <script>
+        jQuery(document).ready(function($) {
+            $('.userrole-ajax').click(function () {
+                var dataid = $(this).data('id');
+                $.ajax({
+                    url: '/userroles/ajax',
+                    type: 'GET',
+                    data: {
+                        userid: dataid
+                    },
+                    success:function(data) {
+                        if(data[0] != null) {
+                            var parent =  $('.userrole-ajax[data-id=' + dataid + ']');
+                            parent.after('<ul class="userroles-list" id="' + parent.data('id') + '-parent">');
+                            for(var i = 0; i < data.length; i++) {
+                                $('#' + parent.data('id') + '-parent').append("<li data-userrole-id='" + data[i].id + "'>- " + data[i].name + "</li>");
+                            }
+                            parent.after('</ul>');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

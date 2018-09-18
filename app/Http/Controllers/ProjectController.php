@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Deadline;
 use App\User;
 use App\Participant;
 use App\Project;
 use App\Category;
 use App\Customer;
+use App\Userroles;
 use Illuminate\Http\Request;
+use App\Deadline;
 
 class ProjectController extends Controller
 {
@@ -20,11 +21,10 @@ class ProjectController extends Controller
     public function index()
     {
         $data = [];
-        $data = [];
 
-        $data['projects'] = Project::join('deadlines', 'projects.id', '=', 'deadlines.projectid')
-                                    ->join('participants', 'projects.id', '=', 'participants.projectid')
-                                    ->join('categories', 'projects.id', '=', 'categories.projectid');
+        $data['projects'] = Project::get();
+
+        $data['users'] = User::get();
 
         return view('project/projects', $data);
     }
@@ -64,9 +64,9 @@ class ProjectController extends Controller
         $projectid = $project->id;
 
         $data['project'] = Project::where('id', $projectid)->get();
-        $data['deadlines'] = Deadlines::where('projectid', $projectid)->get();
+        $data['deadlines'] = Deadline::where('projectid', $projectid)->get();
         $data['category'] = Category::where('projectid', $projectid)->get();
-        $data['participants'] = Participant::where('projectid', $projectid)->get();
+        $data['participants'] = Project::with(['User', 'user.roles'])->get();
 
         return view('project/project', $data);
     }
