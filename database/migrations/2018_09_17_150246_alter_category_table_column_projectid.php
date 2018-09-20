@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserrolesTable extends Migration
+class AlterCategoryTableColumnProjectid extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateUserrolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('userroles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('userid');
-            $table->unsignedInteger('roleid');
-            $table->timestamps();
+        Schema::table('categories', function(Blueprint $table) {
+            $table->renameColumn('projectid', 'project_id');
         });
     }
 
@@ -28,6 +25,6 @@ class CreateUserrolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('userroles');
+        //
     }
 }
