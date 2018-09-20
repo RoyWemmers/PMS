@@ -3,7 +3,7 @@
 @section('content')
     <div id="single-project" class="container-fluid">
         <div class="row">
-            <div class="col-xl-6">
+            <div class="col-xl-3">
                 <div class="card">
                     <div class="card-header">
                         Project: {{ $project[0]->name }}
@@ -23,14 +23,21 @@
                             <thead>
                             <th scope="col">Name</th>
                             <th scope="col">Date</th>
-                            <th scope="col">Time left</th>
+                            <th scope="col">Days left</th>
                             </thead>
                             <tbody>
                             @foreach($deadlines as $deadline)
                                 <tr>
                                     <td>{{ $deadline->name }}</td>
                                     <td>{{ $deadline->time }}</td>
-                                    <td></td>
+                                    <td>
+                                        <?php
+                                        $today                      = new DateTime('now');
+                                        $deadlineRemainingTime      = new DateTime($deadline->time);
+                                        $difference                 = $today->diff($deadlineRemainingTime);
+                                        echo $difference->days;
+                                        ?>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -58,6 +65,16 @@
                             @endif
                             @endforeach
                         </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3">
+                <div class="card">
+                    <div class="card-header">
+                        Category
+                    </div>
+                    <div class="card-body">
 
                     </div>
                 </div>
