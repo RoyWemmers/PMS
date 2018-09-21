@@ -13,4 +13,8 @@ class Project extends Model
     public function category() {
         return $this->hasMany('App\Category', 'category');
     }
+
+    public function customer() {
+        return $this->belongsTo('App\Customer', 'customer_id');
+    }
 }

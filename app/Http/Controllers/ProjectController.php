@@ -59,27 +59,15 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show($id)
     {
-        $projectid = $project->id;
-
-        $data['project'] = Project::where('id', $projectid)->get();
-        $data['deadlines'] = Deadline::where('projectid', $projectid)->get();
-        $data['category'] = Category::where('projectid', $projectid)->get();
+        $data['project'] = Project::findOrFail($id)->with('customer')->get()[0];
+        $data['deadlines'] = Deadline::where('project_id', $id)->get();
+        $data['category'] = Category::where('project_id', $id)->get();
         $data['participants'] = Project::with(['User', 'user.roles'])->get();
+        $data['customers'] = Customer::get();
 
         return view('project/project', $data);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Project $project)
-    {
-        //
     }
 
     /**
@@ -89,9 +77,30 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
-        //
+        $projectname    = $request->projectname;
+        $customerid     = $request->customer_id;
+        $budget         = $request->budget;
+        $spent          = $request->spent;
+        if(empty($request->active)) {
+            $active = 0;
+        } else {
+            $active         = $request->active;
+        }
+        $description    = $request->description;
+
+        Project::where('id', $id)
+            ->update([
+                'name'          => $projectname,
+                'customer_id'   => $customerid,
+                'budget'        => $budget,
+                'spent'         => $spent,
+                'active'        => $active,
+                'description'   => $description,
+                ]);
+
+        return \Redirect::route('projects.show', ['id' => $id, 'status' => 'success', 'statusMessage' => 'Update executed successfully']);
     }
 
     /**
@@ -104,4 +113,5 @@ class ProjectController extends Controller
     {
         //
     }
+
 }

@@ -72,9 +72,40 @@
 //-------------------------------------------------------
 //                    Single Project
 //-------------------------------------------------------
+.status-messages {
+  position: fixed;
+  top: 80px;
+  z-index: 999;
+  max-width: 600px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
 #single-project {
 
+  table {
+    width: 100%;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    
+    .edit-toggle {
+      cursor: pointer;
+    }
+    
+  }
+
   .participants {
+
+    .participant-list {
+      list-style: none;
+      padding: 0;
+      margin-left: 10px;
+      margin-bottom: 0;
+    }
 
     list-style: none;
 
@@ -83,6 +114,32 @@
       list-style: none;
     }
 
+  }
+
+  .single-project-link:hover {
+    text-decoration: none;
+  }
+
+  .single-project-link div {
+
+    border: solid 1px rgba(0, 0, 0, 0.125);
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      margin-bottom: 0;
+      color: #000;
+    }
+    
+    i {
+      font-size: 3em;
+      color: #770000;
+    }
   }
 
 }
