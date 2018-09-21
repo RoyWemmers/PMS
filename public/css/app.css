@@ -10535,13 +10535,81 @@ a.text-dark:focus {
           justify-content: flex-end;
 }
 
+.status-messages {
+  position: fixed;
+  top: 80px;
+  z-index: 999;
+  max-width: 600px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+#single-project table {
+  width: 100%;
+}
+
+#single-project .card-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+#single-project .card-header .edit-toggle {
+  cursor: pointer;
+}
+
 #single-project .participants {
   list-style: none;
+}
+
+#single-project .participants .participant-list {
+  list-style: none;
+  padding: 0;
+  margin-left: 10px;
+  margin-bottom: 0;
 }
 
 #single-project .participants .roles,
 #single-project .participants .roles ul {
   padding: 0 0 0 5px;
   list-style: none;
+}
+
+#single-project .single-project-link:hover {
+  text-decoration: none;
+}
+
+#single-project .single-project-link div {
+  border: solid 1px rgba(0, 0, 0, 0.125);
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 65px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#single-project .single-project-link div p {
+  margin-bottom: 0;
+  color: #000;
+}
+
+#single-project .single-project-link div i {
+  font-size: 3em;
+  color: #770000;
 }
 
