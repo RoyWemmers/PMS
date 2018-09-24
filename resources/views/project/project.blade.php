@@ -102,16 +102,18 @@
                     </div>
                 </div>
             </div>
+            {{--
+
+
             <div class="col-xl-3">
                 <div class="participants card mb-2">
                     <div class="card-header">
                         Participants
-                        <i class="fas fa-edit edit-toggle"></i>
                     </div>
                     <div class="card-body">
                         <ul class="participant-list">
                             @foreach($participants[0]->user as $participant)
-                            <li>{{ $participant->name }}</li>
+                            <li class="participant">{{ $participant->name }} <i class="fas fa-edit edit-toggle"></i></li>
                             @if(isset($participant->roles[0]))
                             <li class="roles">
                                 <ul>
@@ -138,6 +140,10 @@
                     </div>
                 </div>
             </div>
+
+
+            --}}
+
         </div>
     </div>
     <div class="single-project-modals">

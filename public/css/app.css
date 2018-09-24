@@ -10573,6 +10573,17 @@ a.text-dark:focus {
   margin-bottom: 0;
 }
 
+#single-project .participants .participant {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.125);
+  margin-bottom: 5px;
+}
+
 #single-project .participants .roles,
 #single-project .participants .roles ul {
   padding: 0 0 0 5px;

@@ -17,6 +17,10 @@ Auth::routes();
 
 Route::prefix('projects')->group(function () {
     Route::get('', 'ProjectController@index');
+
+    Route::get('create', 'ProjectController@create');
+    Route::post('', 'ProjectController@store');
+
     Route::get('{id}', 'ProjectController@show')->name('projects.show');
     Route::post('{id}', 'ProjectController@update');
 });
