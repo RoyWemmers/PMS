@@ -34,16 +34,13 @@
                             <div class="form-group row">
                                 <label class="col-lg-3" for="budget">Budget</label>
                                 <div class="input-group col-lg-9">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">€</div>
-                                    </div>
-                                    <input class="form-control" name="budget" id="budget" type="number" placeholder="Enter Budget.." step="0.01">
+                                    <input class="form-control" name="budget" id="budget" type="text" placeholder="Enter Hour Budget.." >
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-lg-3" for="comments">Description</label>
+                                <label class="col-lg-3" for="description">Description</label>
                                 <div class="col-lg-9">
-                                    <textarea name="comments" id="comments" class="form-control" cols="30" rows="10" placeholder="Enter project description.."></textarea>
+                                    <textarea name="description" id="description" class="form-control" cols="30" rows="10" placeholder="Enter project description.."></textarea>
                                 </div>
                             </div>
                         </div>
