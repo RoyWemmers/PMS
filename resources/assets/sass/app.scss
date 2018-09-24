@@ -13,18 +13,31 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+//-------------------------------------------------------
+//                        Projects
+//-------------------------------------------------------
+
 .projects-overview {
+  display: flex;
+  flex-wrap: wrap;
+
   a.card {
-    max-width: 200px;
+    width: 200px;
+    margin: 0 10px 10px 0;
     padding: 30px 0;
     text-align: center;
     color: #000;
   }
+
   a:hover {
      text-decoration: none;
   }
 }
 
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+}
 
 //-------------------------------------------------------
 //                    Create Project

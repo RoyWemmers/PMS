@@ -10477,8 +10477,17 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.projects-overview {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
 .projects-overview a.card {
-  max-width: 200px;
+  width: 200px;
+  margin: 0 10px 10px 0;
   padding: 30px 0;
   text-align: center;
   color: #000;
@@ -10486,6 +10495,15 @@ a.text-dark:focus {
 
 .projects-overview a:hover {
   text-decoration: none;
+}
+
+.projects-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #create-project .participants-list {
