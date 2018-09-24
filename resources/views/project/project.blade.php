@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="status-messages">
-        @if($_GET['status'] == 'success')
+        @if(!empty($_GET) && $_GET['status'] == 'success')
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Success!</strong> {{ $_GET['statusMessage'] }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -72,7 +72,6 @@
                 <div class="card mb-2">
                     <div class="card-header">
                         Deadlines
-                        <i class="fas fa-edit edit-toggle"></i>
                     </div>
                     <div class="card-body">
                         <table class="table table-striped single-project-deadlines">
@@ -80,6 +79,7 @@
                             <th scope="col">Name</th>
                             <th scope="col">Date</th>
                             <th scope="col">Days left</th>
+                            <th scope="col"></th>
                             </thead>
                             <tbody>
                             @foreach($deadlines as $deadline)
@@ -94,6 +94,7 @@
                                         echo $difference->days;
                                         ?>
                                     </td>
+                                    <td><i class="fas fa-edit edit-toggle" data-toggle="modal" data-target="#deadlineEditModal_{{ $deadline->id }}"></i></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -146,7 +147,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Project</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -212,5 +213,45 @@
                 </div>
             </div>
         </div>
+
+        {{-- Deadlines Modal --}}
+        @foreach($deadlines as $deadline)
+        <div class="modal fade" id="deadlineEditModal_{{ $deadline->id }}" tabindex="-2" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Project</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/deadlines/{{ $deadline->id }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <input type="hidden" name="projectid" value="{{ $project->id }}">
+                            <input type="hidden" name="deadlineid" value="{{ $deadline->id }}">
+                            <div class="form-group row">
+                                <label class="col-lg-3" for="deadlinename">Deadline Name</label>
+                                <div class="input-group col-lg-9">
+                                    <input id="deadlinename" class="col-lg-9 form-control" type="text" name="deadlinename" value="{{ $deadline->name }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg-3" for="deadlinedate">Deadline Name</label>
+                                <div class="input-group col-lg-9">
+                                    <input id="deadlinedate" class="col-lg-9 form-control" type="date" name="deadlinedate" value="{{ $deadline->time }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
 @endsection
