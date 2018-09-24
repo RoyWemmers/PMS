@@ -67,9 +67,9 @@ class DeadlineController extends Controller
      * @param  \App\deadline  $deadline
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, deadline $deadline)
+    public function update(Request $request, $id)
     {
-        //
+        
     }
 
     /**

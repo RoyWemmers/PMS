@@ -21,5 +21,9 @@ Route::prefix('projects')->group(function () {
     Route::post('{id}', 'ProjectController@update');
 });
 
+Route::prefix('deadlines')->group(function () {
+    Route::post('{id}', 'DeadlineController@update');
+});
+
 
 
