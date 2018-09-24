@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\deadline;
+use App\Roles;
 use Illuminate\Http\Request;
 
-class DeadlineController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class DeadlineController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\deadline  $deadline
+     * @param  \App\Roles  $roles
      * @return \Illuminate\Http\Response
      */
-    public function show(deadline $deadline)
+    public function show(Roles $roles)
     {
         //
     }
@@ -52,10 +52,10 @@ class DeadlineController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\deadline  $deadline
+     * @param  \App\Roles  $roles
      * @return \Illuminate\Http\Response
      */
-    public function edit(deadline $deadline)
+    public function edit(Roles $roles)
     {
         //
     }
@@ -64,21 +64,21 @@ class DeadlineController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\deadline  $deadline
+     * @param  \App\Roles  $roles
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Roles $roles)
     {
-        
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\deadline  $deadline
+     * @param  \App\Roles  $roles
      * @return \Illuminate\Http\Response
      */
-    public function destroy(deadline $deadline)
+    public function destroy(Roles $roles)
     {
         //
     }

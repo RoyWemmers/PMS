@@ -13,6 +13,133 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-#footerbar-project-create {
-  justify-content: flex-end;
+.projects-overview {
+  a.card {
+    max-width: 200px;
+    padding: 30px 0;
+    text-align: center;
+    color: #000;
+  }
+  a:hover {
+     text-decoration: none;
+  }
+}
+
+
+//-------------------------------------------------------
+//                    Create Project
+//-------------------------------------------------------
+#create-project {
+
+  .participants-list {
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 1px #adadad;
+    min-height: 200px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+
+        p {
+          margin: 0;
+        }
+      }
+
+      ul {
+        margin: 5px 0;
+        padding: 0 0 0 20px;
+      }
+    }
+  }
+
+  .participant-button {
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+  }
+
+  #footerbar-project-create {
+    justify-content: flex-end;
+  }
+}
+
+//-------------------------------------------------------
+//                    Single Project
+//-------------------------------------------------------
+.status-messages {
+  position: fixed;
+  top: 80px;
+  z-index: 999;
+  max-width: 600px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+#single-project {
+
+  table {
+    width: 100%;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    
+    .edit-toggle {
+      cursor: pointer;
+    }
+    
+  }
+
+  .participants {
+
+    .participant-list {
+      list-style: none;
+      padding: 0;
+      margin-left: 10px;
+      margin-bottom: 0;
+    }
+
+    list-style: none;
+
+    .roles, .roles ul {
+      padding:  0 0 0 5px;
+      list-style: none;
+    }
+
+  }
+
+  .single-project-link:hover {
+    text-decoration: none;
+  }
+
+  .single-project-link div {
+
+    border: solid 1px rgba(0, 0, 0, 0.125);
+    border-radius: 10px;
+    padding: 10px;
+    max-width: 65px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      margin-bottom: 0;
+      color: #000;
+    }
+    
+    i {
+      font-size: 3em;
+      color: #770000;
+    }
+  }
+
 }

@@ -7,7 +7,9 @@
             <div class="card-header">
                 Projects
             </div>
-            @yield('projectoverview')
+            <div class="card-body">
+                @yield('projectoverview')
+            </div>
         </div>
     </div>
 @endsection

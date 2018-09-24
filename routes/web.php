@@ -15,7 +15,15 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::resource('projects', 'ProjectController');
+Route::prefix('projects')->group(function () {
+    Route::get('', 'ProjectController@index');
+    Route::get('{id}', 'ProjectController@show')->name('projects.show');
+    Route::post('{id}', 'ProjectController@update');
+});
+
+Route::prefix('deadlines')->group(function () {
+    Route::post('{id}', 'DeadlineController@update');
+});
 
 
 
