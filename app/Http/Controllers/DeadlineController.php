@@ -67,9 +67,18 @@ class DeadlineController extends Controller
      * @param  \App\deadline  $deadline
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, deadline $deadline)
+    public function update(Request $request, $id)
     {
-        //
+        $name = $request->deadlinename;
+        $date = date('Y-m-d', strtotime($request->deadlinedate));
+        $project_id = $request->projectid;
+
+        Deadline::where('id', $id)->update([
+            'name' => $name,
+            'time' => $date
+            ]);
+
+        return \Redirect::route('projects.show', ['id' => $project_id, 'status' => 'success', 'statusMessage' => 'Updated deadline successfully']);
     }
 
     /**
