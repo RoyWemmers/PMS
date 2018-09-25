@@ -32,6 +32,8 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::prefix('deadlines')->group(function () {
         Route::post('{id}', 'DeadlineController@update');
+        Route::post('', 'DeadlineController@store');
+        Route::post('{id}/destroy', 'DeadlineController@destroy');
     });
 });
 

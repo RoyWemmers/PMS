@@ -68,7 +68,7 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $data['project'] = Project::where('id', $id)->with('customer')->get()[0];
         $data['deadlines'] = Deadline::where('project_id', $id)->get();
@@ -76,6 +76,9 @@ class ProjectController extends Controller
         $data['participants'] = Project::with(['User', 'user.roles'])->get();
         $data['customers'] = Customer::get();
 
+        if($request->user()->is_admin == 1) {
+            return view('project/projectadmin', $data);
+        }
         return view('project/project', $data);
     }
 
