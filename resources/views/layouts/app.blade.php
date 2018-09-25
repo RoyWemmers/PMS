@@ -1,3 +1,5 @@
+@include('elements/statusmessages')
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -23,6 +25,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @yield('statusmessages')
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark navbar-laravel bg-primary">
             <div class="container-fluid">

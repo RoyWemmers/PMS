@@ -1,17 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="status-messages">
-        @if(!empty($_GET) && $_GET['status'] == 'success')
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>Success!</strong> {{ $_GET['statusMessage'] }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        @endif
-    </div>
-
     <div id="single-project" class="container-fluid">
         <div class="row">
             <div class="col-xl-3">
@@ -102,16 +91,18 @@
                     </div>
                 </div>
             </div>
+            {{--
+
+
             <div class="col-xl-3">
                 <div class="participants card mb-2">
                     <div class="card-header">
                         Participants
-                        <i class="fas fa-edit edit-toggle"></i>
                     </div>
                     <div class="card-body">
                         <ul class="participant-list">
                             @foreach($participants[0]->user as $participant)
-                            <li>{{ $participant->name }}</li>
+                            <li class="participant">{{ $participant->name }} <i class="fas fa-edit edit-toggle"></i></li>
                             @if(isset($participant->roles[0]))
                             <li class="roles">
                                 <ul>
@@ -138,6 +129,10 @@
                     </div>
                 </div>
             </div>
+
+
+            --}}
+
         </div>
     </div>
     <div class="single-project-modals">
@@ -204,6 +199,13 @@
                                     <textarea name="description" id="description" class="form-control" cols="30" rows="10" placeholder="Enter project description..">{{ $project->description }}</textarea>
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <label class="col-lg-3">Delete Project</label>
+                                <div class="col-lg-9">
+                                    <p class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#deleteModal">Delete</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -253,5 +255,30 @@
             </div>
         </div>
         @endforeach
+
+        {{-- Delete Modal --}}
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Are you Sure</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ $project->id }}/destroy" method="POST">
+                        @csrf
+                        <input type="hidden" name="projectid" value="{{ $project->id }}">
+                        <div class="modal-body">
+                            Are you sure you want to <strong>PERMANENTLY</strong> delete this project?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#projectEditModal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
