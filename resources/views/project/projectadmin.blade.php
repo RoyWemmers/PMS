@@ -43,7 +43,6 @@
                 <div class="card mb-4">
                     <div class="card-header">
                         Links
-                        <i class="fas fa-edit edit-toggle"></i>
                     </div>
                     <div class="card-body">
                         @if(!empty($project->trello_link))
@@ -167,7 +166,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-3" for="budget">Budget</label>
                                 <div class="input-group col-lg-9">
-                                    <input class="form-control" name="budget" id="budget" max="100000" type="text" placeholder="Enter Budget.." value="{{ $project->budget }}">
+                                    <input class="form-control" name="budget" id="budget" type="text" placeholder="Enter Budget.." value="{{ $project->budget }}">
                                 </div>
                             </div>
 
@@ -193,11 +192,19 @@
                             </div>
 
                             <div class="form-group row">
+                                <label class="col-lg-3" for="trellolink">Trello Link</label>
+                                <div class="input-group col-lg-9">
+                                    <input class="form-control" name="trellolink" id="trellolink" type="text" placeholder="Enter Trello Link.." value="{{ $project->trello_link }}">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label class="col-lg-3">Delete Project</label>
                                 <div class="col-lg-9">
                                     <p class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#projectdeleteModal">Delete</p>
                                 </div>
                             </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
