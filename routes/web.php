@@ -18,6 +18,9 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
 
+    Route::get('', 'DashboardController@rootRedirect');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
     Route::prefix('projects')->group(function () {
         Route::get('', 'ProjectController@index')->name('projects');
 

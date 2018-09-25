@@ -95,6 +95,7 @@ class ProjectController extends Controller
         $customerid     = $request->customer_id;
         $budget         = $request->budget;
         $spent          = $request->spent;
+        $trello         = $request->trellolink;
         if(empty($request->active)) {
             $active = 0;
         } else {
@@ -109,6 +110,7 @@ class ProjectController extends Controller
                 'budget'        => $budget,
                 'spent'         => $spent,
                 'active'        => $active,
+                'trello_link'   => $trello,
                 'description'   => $description,
                 ]);
 
