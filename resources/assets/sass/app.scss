@@ -13,6 +13,51 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+main {
+
+  #sidebar {
+    background: #4B515D;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    top: 55px;
+    width: 16.66666667%;
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding: 10px 30px;
+        border-bottom: solid 1px rgba(255,255,255, 0.3);
+
+        a {
+          color: #FFFFFF;
+          font-size: 1.2em;
+        }
+      }
+
+      .active {
+        background: #3490dc78;
+      }
+    }
+
+  }
+
+  .col-2 {
+    padding: 0;
+  }
+
+   > .row {
+    margin: 0 !important;
+  }
+
+  .content {
+    margin-top: 80px;
+  }
+}
+
+
 //-------------------------------------------------------
 //                        Projects
 //-------------------------------------------------------

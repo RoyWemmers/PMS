@@ -10477,6 +10477,46 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+main #sidebar {
+  background: #4B515D;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: 55px;
+  width: 16.66666667%;
+}
+
+main #sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+main #sidebar ul li {
+  padding: 10px 30px;
+  border-bottom: solid 1px rgba(255, 255, 255, 0.3);
+}
+
+main #sidebar ul li a {
+  color: #FFFFFF;
+  font-size: 1.2em;
+}
+
+main #sidebar ul .active {
+  background: #3490dc78;
+}
+
+main .col-2 {
+  padding: 0;
+}
+
+main > .row {
+  margin: 0 !important;
+}
+
+main .content {
+  margin-top: 80px;
+}
+
 .projects-overview {
   display: -webkit-box;
   display: -ms-flexbox;
