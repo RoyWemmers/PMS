@@ -38,6 +38,12 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('', 'DeadlineController@store');
         Route::post('{id}/destroy', 'DeadlineController@destroy');
     });
+
+    Route::prefix('participants')->group(function() {
+        Route::post('', 'ParticipantController@store');
+        Route::post('{id}', 'ParticipantController@update');
+        Route::post('{id}/destroy', 'ParticipantController@destroy');
+    });
 });
 
 

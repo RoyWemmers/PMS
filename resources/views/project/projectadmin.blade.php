@@ -93,11 +93,12 @@
                 <div class="participants card mb-4">
                     <div class="card-header">
                         Participants
+                        <div class="edit-toggle" data-toggle="modal" data-target="#addParticipantModal">Add Participant</div>
                     </div>
                     <div class="card-body">
                         <ul class="participant-list">
                             @foreach($participants[0]->user as $participant)
-                                <li class="participant">{{ $participant->name }} <i class="fas fa-edit edit-toggle"></i></li>
+                                <li class="participant">{{ $participant->name }} <i class="fas fa-edit edit-toggle" data-toggle="modal" data-target="#editParticipantModal_{{ $participant->id }}"></i></li>
                                 @if(isset($participant->roles[0]))
                                     <li class="roles">
                                         <ul>
@@ -350,5 +351,147 @@
                 </div>
             </div>
         </div>
+
+        {{-- Add Participants Modal --}}
+        <div class="modal fade" id="addParticipantModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Add Participant</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/participants" method="POST">
+                        @csrf
+                        <input type="hidden" name="projectid" value="{{ $project->id }}">
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label class="col-lg-3" for="participant">User</label>
+                                <div class="input-group col-lg-9">
+                                    <select name="participant" id="participant" class="form-control">
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <p class="col-lg-3" for="participant">Roles</p>
+                                <div class="input-group col-lg-9">
+                                    <div class="userroles-group">
+                                        <?php $i = 0; ?>
+                                        @foreach($roles as $role)
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="role[{{ $i }}]" type="checkbox" value="{{ $role->id }}" id="role_{{ $role->id }}">
+                                                <label class="form-check-label" for="role_{{ $role->id }}">
+                                                    {{ $role->name }}
+                                                </label>
+                                            </div>
+                                            <?php $i++; ?>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#projectEditModal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {{-- Edit Participants Modal --}}
+        @foreach($participants[0]->user as $participant)
+        <div class="modal fade" id="editParticipantModal_{{ $participant->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Add Participant</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/participants/{{ $participant->id }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="projectid" value="{{ $project->id }}">
+                        <input type="hidden" name="userid" value="{{ $participant->pivot->user_id }}">
+                        <div class="modal-body">
+                            <div class="form-group row">
+                                <label class="col-lg-3" for="participant">User</label>
+                                <div class="input-group col-lg-9">
+                                    <input type="text" class="form-control" value="{{ $participant->name }}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <p class="col-lg-3" for="participant">Roles</p>
+                                <div class="input-group col-lg-9">
+                                    <div class="userroles-group">
+                                        {{-- Format currently selected roles to array with singular ids --}}
+                                        <?php $currentRoles = [] ?>
+                                        @foreach($participant->roles as $role)
+                                            <?php $currentRoles[] = $role['id'] ?>
+                                        @endforeach
+                                        <?php $i = 0; ?>
+                                        @foreach($roles as $role)
+                                            <div class="form-check">
+                                                @if(in_array($role['id'], $currentRoles))
+                                                    <input class="form-check-input" name="role[{{ $i }}]" type="hidden" value="remove_{{ $role->id }}" id="role_{{ $role->id }}_hidden">
+                                                    <input class="form-check-input" name="role[{{ $i }}]" type="checkbox" value="" id="role_{{ $role->id }}" @if(in_array($role['id'], $currentRoles)) checked @endif>
+                                                @else
+                                                    <input class="form-check-input" name="role[{{ $i }}]" type="checkbox" value="add_{{ $role->id }}" id="role_{{ $role->id }}">
+                                                @endif
+                                                <label class="form-check-label" for="role_{{ $role->id }}">
+                                                    {{ $role->name }}
+                                                </label>
+                                            </div>
+                                            <?php $i++; ?>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-lg-3">Remove Participant</label>
+                                <div class="col-lg-9">
+                                    <p class="btn btn-danger" data-dismiss="modal" data-toggle="modal" data-target="#participantRemoveModal_{{ $participant->id }}">Remove</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#projectEditModal">Cancel</button>
+                            <button type="submit" class="btn btn-success">Update</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="participantRemoveModal_{{ $participant->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Are you Sure</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="/participants/{{ $participant->id }}/destroy" method="POST">
+                        @csrf
+                        <input type="hidden" name="projectid" value="{{ $project->id }}">
+                        <input type="hidden" name="participantid" value="{{ $participant->id }}">
+                        <div class="modal-body">
+                            Are you sure you want to remove this participant from the project?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal" data-target="#projectEditModal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        @endforeach
     </div>
 @endsection
