@@ -4,10 +4,13 @@
 @section('content')
     <div class="container-fluid">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header projects-header">
                 Projects
+                <a href="projects/create">Create Project</a>
             </div>
-            @yield('projectoverview')
+            <div class="card-body">
+                @yield('projectoverview')
+            </div>
         </div>
     </div>
 @endsection
