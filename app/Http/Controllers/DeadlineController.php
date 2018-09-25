@@ -35,7 +35,15 @@ class DeadlineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Deadline::insert([
+            'name' => $request->deadlinename,
+            'time' => date('Y-m-d', strtotime($request->deadlinedate)),
+            'project_id' => $request->projectid,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        return \Redirect::route('projects.show', ['id' => $request->projectid, 'status' => 'success', 'statusMessage' => 'Deadline created successfully']);
     }
 
     /**
@@ -67,9 +75,18 @@ class DeadlineController extends Controller
      * @param  \App\deadline  $deadline
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, deadline $deadline)
+    public function update(Request $request, $id)
     {
-        //
+        $name = $request->deadlinename;
+        $date = date('Y-m-d', strtotime($request->deadlinedate));
+        $project_id = $request->projectid;
+
+        Deadline::where('id', $id)->update([
+            'name' => $name,
+            'time' => $date
+            ]);
+
+        return \Redirect::route('projects.show', ['id' => $project_id, 'status' => 'success', 'statusMessage' => 'Updated deadline successfully']);
     }
 
     /**
@@ -78,8 +95,10 @@ class DeadlineController extends Controller
      * @param  \App\deadline  $deadline
      * @return \Illuminate\Http\Response
      */
-    public function destroy(deadline $deadline)
+    public function destroy(Request $request, $id)
     {
-        //
+        Deadline::where('id', $id)->delete();
+
+        return \Redirect::route('projects.show', ['id' => $request->projectid, 'status' => 'success', 'statusMessage' => 'Updated deadline successfully']);
     }
 }

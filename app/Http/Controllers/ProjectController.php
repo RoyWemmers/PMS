@@ -37,8 +37,6 @@ class ProjectController extends Controller
     public function create()
     {
         $data['customers'] = Customer::get();
-        $data['users'] = User::get();
-
         return view('project/create', $data);
     }
 
@@ -50,7 +48,18 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id =  Project::insertGetId([
+            'name' => $request->projectname,
+            'customer_id' => $request->customerid,
+            'active' => 1,
+            'budget' => $request->budget,
+            'spent' => '00:00:00',
+            'trello_link' => '',
+            'description' => $request->description,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        return \Redirect::route('projects.show', ['id' => $id, 'status' => 'success', 'statusMessage' => 'Project created successfully']);
     }
 
     /**
@@ -59,14 +68,17 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $data['project'] = Project::findOrFail($id)->with('customer')->get()[0];
+        $data['project'] = Project::where('id', $id)->with('customer')->get()[0];
         $data['deadlines'] = Deadline::where('project_id', $id)->get();
         $data['category'] = Category::where('project_id', $id)->get();
         $data['participants'] = Project::with(['User', 'user.roles'])->get();
         $data['customers'] = Customer::get();
 
+        if($request->user()->is_admin == 1) {
+            return view('project/projectadmin', $data);
+        }
         return view('project/project', $data);
     }
 
@@ -109,9 +121,15 @@ class ProjectController extends Controller
      * @param  \App\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy(Request $request)
     {
-        //
+        $id = $request->projectid;
+
+        Participant::where('project_id', $id)->delete();
+        Deadline::where('project_id', $id)->delete();
+        Project::where('id', $id)->delete();
+
+        return \Redirect::route('projects', ['status' => 'success', 'statusMessage' => 'Project deleted successfully']);
     }
 
 }
