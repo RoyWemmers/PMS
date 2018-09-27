@@ -7,6 +7,7 @@
             <li><a href="">Roles</a></li>
             <li><a href="">Categories</a></li>
             <li><a href="">Customers</a></li>
+            <li><a href="">Logbook</a></li>
         </ul>
     </div>
 @endsection
