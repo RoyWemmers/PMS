@@ -1,3 +1,6 @@
+@include('elements/statusmessages')
+@include('elements/sidebar')
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -23,8 +26,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @yield('statusmessages')
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-dark navbar-laravel bg-primary">
+        <nav class="navbar navbar-expand-md fixed-top navbar-dark navbar-laravel bg-primary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -73,8 +77,15 @@
             </div>
         </nav>
 
-        <main class="py-4">
-            @yield('content')
+        <main>
+            <div class="row">
+                <div class="col-2">
+                    @yield('sidebar')
+                </div>
+                <div class="content col-10">
+                    @yield('content')
+                </div>
+            </div>
         </main>
     </div>
     <footer>
