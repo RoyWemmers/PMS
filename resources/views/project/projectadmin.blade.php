@@ -383,7 +383,7 @@
                                         <?php $i = 0; ?>
                                         @foreach($roles as $role)
                                             <div class="form-check">
-                                                <input class="form-check-input" name="role[{{ $i }}]" type="checkbox" value="{{ $role->id }}" id="role_{{ $role->id }}">
+                                                <input class="form-check-input" name="role[{{ $i }}]" type="checkbox" value="add_{{ $role->id }}" id="role_{{ $role->id }}">
                                                 <label class="form-check-label" for="role_{{ $role->id }}">
                                                     {{ $role->name }}
                                                 </label>
@@ -414,7 +414,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="/participants/{{ $participant->id }}" method="POST">
+                    <form id="participantEditModal_{{ $participant->id }}" action="/participants/{{ $participant->id }}" method="POST">
                         @csrf
                         <input type="hidden" name="projectid" value="{{ $project->id }}">
                         <input type="hidden" name="userid" value="{{ $participant->pivot->user_id }}">
@@ -436,17 +436,17 @@
                                         @endforeach
                                         <?php $i = 0; ?>
                                         @foreach($roles as $role)
-                                            <div class="form-check">
-                                                @if(in_array($role['id'], $currentRoles))
-                                                    <input class="form-check-input" name="role[{{ $i }}]" type="hidden" value="remove_{{ $role->id }}" id="role_{{ $role->id }}_hidden">
-                                                    <input class="form-check-input" name="role[{{ $i }}]" type="checkbox" value="" id="role_{{ $role->id }}" @if(in_array($role['id'], $currentRoles)) checked @endif>
-                                                @else
-                                                    <input class="form-check-input" name="role[{{ $i }}]" type="checkbox" value="add_{{ $role->id }}" id="role_{{ $role->id }}">
-                                                @endif
-                                                <label class="form-check-label" for="role_{{ $role->id }}">
-                                                    {{ $role->name }}
-                                                </label>
-                                            </div>
+                                            @if(in_array($role['id'], $currentRoles))
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" name="role[{{ $i }}]" checked value="remove_{{ $role->id }}">
+                                                    <label class="form-check-label" for="role[{{ $i }}]">{{ $role->name }}</label>
+                                                </div>
+                                            @else
+                                                <div class="form-check">
+                                                    <input type="checkbox" class="form-check-input" name="role[{{ $i }}]" value="add_{{ $role->id }}">
+                                                    <label class="form-check-label" for="role[{{ $i }}]">{{ $role->name }}</label>
+                                                </div>
+                                            @endif
                                             <?php $i++; ?>
                                         @endforeach
                                     </div>
