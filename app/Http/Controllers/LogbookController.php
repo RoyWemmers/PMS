@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\logbook;
+use App\User;
 use Illuminate\Http\Request;
 
 class LogbookController extends Controller
@@ -12,9 +13,19 @@ class LogbookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $userid = $request->user()->id;
+
+        $data['logs'] = Logbook::where('user_id', $userid)->with('project')->get();
+
+
+        $data['projects'] = User::with('project')->where('id', $userid)->get();
+
+        $data['userid'] = $userid;
+
+        return view('logbook', $data);
     }
 
     /**
@@ -35,7 +46,29 @@ class LogbookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $userid         = $request->userid;
+        $projectid      = $request->project;
+        $description    = $request->description;
+        $startdate      = $request->startdate;
+        $starttime      = $request->starttime;
+        $enddate        = $request->enddate;
+        $endtime        = $request->endtime;
+        $duration       = $request->duration;
+
+        $start          = $startdate . ' ' . $starttime . ':00';
+        $end            = $enddate . ' ' . $endtime . ':00';
+
+        Logbook::insert([
+            'project_id'    => $projectid,
+            'user_id'       => $userid,
+            'description'   => $description,
+            'starttime'     => $start,
+            'endtime'       => $end,
+            'duration'      => $duration,
+            'created_at'    => now(),
+            'updated_at'    => now()
+        ]);
+        return \Redirect::route('logbook', ['status' => 'success', 'statusMessage' => 'Added row successfully']);
     }
 
     /**
