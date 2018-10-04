@@ -44,6 +44,11 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('{id}', 'ParticipantController@update');
         Route::post('{id}/destroy', 'ParticipantController@destroy');
     });
+
+    Route::prefix('logbook')->group(function() {
+        Route::get('', 'LogbookController@index')->name('logbook');
+        Route::post('', 'LogbookController@store');
+    });
 });
 
 
