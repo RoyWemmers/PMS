@@ -1,7 +1,7 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: royce
- * Date: 11-9-2018
- * Time: 11:00
- */
+@extends('layouts.app')
+
+@section('content')
+   <div>
+       <H1>Dashboard</H1>
+   </div>
+@endsection

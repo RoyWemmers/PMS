@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use App\Http\Middleware\CheckAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,42 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::resource('projects', 'ProjectController');
+Route::group(['middleware' => ['auth']], function() {
+
+    Route::get('', 'DashboardController@rootRedirect');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+    Route::prefix('projects')->group(function () {
+        Route::get('', 'ProjectController@index')->name('projects');
+
+        Route::get('create', 'ProjectController@create');
+        Route::post('create', 'ProjectController@store');
+
+        Route::get('{id}', 'ProjectController@show')->name('projects.show');
+        Route::post('{id}', 'ProjectController@update');
+
+        Route::post('{id}/destroy', 'ProjectController@destroy')->middleware('checkadmin');
+    });
+
+    Route::prefix('deadlines')->group(function () {
+        Route::post('{id}', 'DeadlineController@update');
+        Route::post('', 'DeadlineController@store');
+        Route::post('{id}/destroy', 'DeadlineController@destroy');
+    });
+
+    Route::prefix('participants')->group(function() {
+        Route::post('', 'ParticipantController@store');
+        Route::post('{id}', 'ParticipantController@update');
+        Route::post('{id}/destroy', 'ParticipantController@destroy');
+    });
+
+    Route::prefix('logbook')->group(function() {
+        Route::get('', 'LogbookController@index')->name('logbook');
+        Route::post('', 'LogbookController@store');
+    });
+});
+
+
 
 
 
