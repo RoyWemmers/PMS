@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class deadline extends Model
+class Deadline extends Model
 {
     //
 }
