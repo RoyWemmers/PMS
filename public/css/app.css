@@ -10477,6 +10477,10 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.edit-toggle {
+  cursor: pointer;
+}
+
 main #sidebar {
   background: #4B515D;
   position: fixed;
@@ -10692,8 +10696,21 @@ main .content {
   border-radius: 5px;
   padding: 10px 12px;
   min-height: 100px;
-  max-height: 200px;
+  max-height: 155px;
   overflow-y: scroll;
   width: 100%;
+}
+
+.roles-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.roles-header .edit-toggle {
+  cursor: pointer;
 }
 
