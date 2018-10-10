@@ -13,6 +13,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.edit-toggle {
+  cursor: pointer;
+}
+
 main {
 
   #sidebar {
@@ -219,7 +223,20 @@ main {
   border-radius: 5px;
   padding: 10px 12px;
   min-height: 100px;
-  max-height: 200px;
+  max-height: 155px;
   overflow-y: scroll;
   width: 100%;
+}
+
+
+//-------------------------------------------------------
+//                        Roles
+//-------------------------------------------------------
+
+.roles-header {
+  display: flex;
+  justify-content: space-between;
+  .edit-toggle{
+    cursor: pointer;
+  }
 }

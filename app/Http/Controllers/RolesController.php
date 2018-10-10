@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Roles;
+use App\Userroles;
 use Illuminate\Http\Request;
 
 class RolesController extends Controller
@@ -14,17 +15,8 @@ class RolesController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $data['roles'] = Roles::get();
+        return view('roles', $data);
     }
 
     /**
@@ -35,29 +27,15 @@ class RolesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $rolename = $request->rolename;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Roles  $roles
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Roles $roles)
-    {
-        //
-    }
+        Roles::insert([
+            'name' => $rolename,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Roles  $roles
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Roles $roles)
-    {
-        //
+        return \Redirect::route('roles', ['status' => 'success', 'statusMessage' => 'Role created successfully']);
     }
 
     /**
@@ -67,9 +45,21 @@ class RolesController extends Controller
      * @param  \App\Roles  $roles
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Roles $roles)
+    public function update(Request $request, $id)
     {
-        //
+        $roleid     = $id;
+        $rolename   = $request->rolename;
+
+        if(!empty($rolename)) {
+            Roles::where('id', $roleid)
+                ->update([
+                    'name'      => $rolename,
+                    'updated_at'    => now()
+                ]);
+            return \Redirect::route('roles', ['status' => 'success', 'statusMessage' => 'Role updated successfully']);
+        }
+
+        return \Redirect::route('roles', ['status' => 'error', 'statusMessage' => 'Looks like something went wrong!']);
     }
 
     /**
@@ -78,8 +68,11 @@ class RolesController extends Controller
      * @param  \App\Roles  $roles
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Roles $roles)
+    public function destroy($id)
     {
-        //
+        Userroles::where('roles_id', $id)->delete();
+        Roles::where('id', $id)->delete();
+
+        return \Redirect::route('roles', ['status' => 'success', 'statusMessage' => 'Role deleted successfully!']);
     }
 }

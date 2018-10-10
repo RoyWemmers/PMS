@@ -49,6 +49,13 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('', 'LogbookController@index')->name('logbook');
         Route::post('', 'LogbookController@store');
     });
+
+    Route::prefix('roles')->group(function() {
+        Route::get('', 'RolesController@index')->name('roles');
+        Route::post('', 'RolesController@store');
+        Route::post('{id}', 'RolesController@update');
+        Route::post('{id}/destroy', 'RolesController@destroy');
+    });
 });
 
 
